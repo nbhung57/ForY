@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <button id="playMusicBtn">Play Music</button>
+    <section class="slider-container">
+      <div class="slider-images">
+        <div class="slider-img">
+          <img src="2.ForBirthDay/1.jpg" alt="1" />
+          <h1>Pretty</h1>
+          <div class="details">
+            <h2>Pretty</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+        <div class="slider-img">
+          <img src="2.ForBirthDay/2.jpg" alt="2" />
+          <h1>Lovely</h1>
+          <div class="details">
+            <h2>Lovely</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+        <div class="slider-img">
+          <img src="2.ForBirthDay/3.jpg" alt="3" />
+          <h1>Delightful</h1>
+          <div class="details">
+            <h2>Delightful</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+        <div class="slider-img active">
+          <img src="2.ForBirthDay/4.jpg" alt="4" />
+          <h1>Endearing</h1>
+          <div class="details">
+            <h2>Endearing</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+        <div class="slider-img">
+          <img src="2.ForBirthDay/5.jpg" alt="5" />
+          <h1>Sweet</h1>
+          <div class="details">
+            <h2>Sweet</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+        <div class="slider-img">
+          <img src="2.ForBirthDay/6.jpg" alt="6" />
+          <h1>Attractive</h1>
+          <div class="details">
+            <h2>Attractive</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+        <div class="slider-img">
+          <img src="2.ForBirthDay/7.jpg" alt="7" />
+          <h1>Precious</h1>
+          <div class="details">
+            <h2>Precious</h2>
+            <p>Yoopies</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="js/jQuery.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          const audioContext = new AudioContext();
+          const musicUrl = '2.ForBirthDay/LoveStory.mp';
+
+          const playMusicBtn = document.getElementById('playMusicBtn');
+
+          // Load and decode audio file
+          const loadAudio = async () => {
+              const response = await fetch(musicUrl);
+              const arrayBuffer = await response.arrayBuffer();
+              const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+              return audioBuffer;
+          };
+
+          // Play audio
+          const playAudio = async () => {
+              const audioBuffer = await loadAudio();
+              const source = audioContext.createBufferSource();
+              source.buffer = audioBuffer;
+              source.connect(audioContext.destination);
+              source.start(0);
+          };
+
+          playMusicBtn.addEventListener('click', async () => {
+              await playAudio();
+              playMusicBtn.disabled = true; // Disable the button after playing
+          });
+      });
+   </script>
+    <script>
+      
+      jQuery(document).ready(function ($) {
+        $(".slider-img").on("click", function () {
+          $(".slider-img").removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+    </script>
+  </body>
+</html>
